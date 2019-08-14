@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>简单工厂模式 | MS的博客</title>
-  <meta name="keywords" content=" 程序设计 , 设计模式 , 面向对象 ">
-  <meta name="description" content="简单工厂模式 | MS的博客">
+  <title>C4Model学习笔记 | MS的博客</title>
+  <meta name="keywords" content=" C4Model , 可视化 , 程序设计 ">
+  <meta name="description" content="C4Model学习笔记 | MS的博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="多看、少说、多做">
 <meta property="og:type" content="website">
@@ -261,9 +261,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-简单工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-C4Model学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">简单工厂模式</h1>
+        <h1 class="article-title">C4Model学习笔记</h1>
     
     <div class="article-meta">
         
@@ -271,25 +271,27 @@
         
         <span class="book">
             
-                <a href="javascript:" data-rel="设计模式">设计模式</a>
+                <a href="javascript:" data-rel="学习笔记">学习笔记</a>/
+            
+                <a href="javascript:" data-rel="设计可视化">设计可视化</a>
             
         </span>
         
         
         <span class="tag">
             
+            <a href="javascript:" class="color3">C4Model</a>
+            
+            <a href="javascript:" class="color4">可视化</a>
+            
             <a href="javascript:" class="color5">程序设计</a>
-            
-            <a href="javascript:" class="color5">设计模式</a>
-            
-            <a href="javascript:" class="color5">面向对象</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-11 16:10:31'>2019-07-28 21:22</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-15 00:05:46'>2019-08-11 16:12</time>
         
     </div>
     <div class="article-meta">
@@ -322,7 +324,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why"><span class="toc-text">Why</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#What"><span class="toc-text">What</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UML结构图"><span class="toc-text">UML结构图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#角色说明"><span class="toc-text">角色说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Limits"><span class="toc-text">Limits</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Context"><span class="toc-text">Context</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Container"><span class="toc-text">Container</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意-1"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Component"><span class="toc-text">Component</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意-2"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code"><span class="toc-text">Code</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注意-3"><span class="toc-text">注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#System-Landscape-diagram"><span class="toc-text">System Landscape diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dynamic-diagram"><span class="toc-text">Dynamic diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deployment-diagram"><span class="toc-text">Deployment diagram</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -337,17 +339,68 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>工厂，顾名思义，生产商品，程序设计中的工厂则负责创建对象。有了工厂，对象的使用者不必再自己创建对象，而专注于使用对象完成事情。简单工厂模式的之所以“简单”，既是因为它的实现只需要一个包含静态工厂方法的类型；也是因为使用它的场景最好是对象类型不多、创建过程不复杂的情况，简言之，简单工厂模式解决对象的简单创建问题。</p>
-<p><em>PS：</em>尽管简单工厂模式不是GoF著作《设计模式》中的一种，但通常将它作为最基础的模式来使用。</p>
-<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><h3 id="UML结构图"><a href="#UML结构图" class="headerlink" title="UML结构图"></a>UML结构图</h3><p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/simplefactory.png" alt></p>
-<h3 id="角色说明"><a href="#角色说明" class="headerlink" title="角色说明"></a>角色说明</h3><p><strong>工厂类</strong>：是简单工厂模式中的核心类，包含一个返回产品对象的工厂方法，用户就是调用它来创建对象，另外工厂方法一般是静态的，否则工厂对象的创建职责也需要有人来承担；另外，如果抽象产品类是一个抽象类型而不是接口，工厂的角色也可以由抽象产品类来承担；</p>
-<p><strong>抽象产品类</strong>：是工厂类创建的所有产品对象的父类，可以是接口或者类型，它的存在使得工厂类只需要定义一个通用的工厂方法；</p>
-<p><strong>具体产品类</strong>：定义了具体的对象类型，被工厂类直接依赖。</p>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><blockquote>
-<p>设计一个可以创建不同几何形状（如圆形、方形和三角形等）的绘图工具，每个几何图形都具有绘制draw()和擦除erase()两个方法，要求在绘制不支持的几何图形时，提示一个UnSupportedShapeException</p>
-</blockquote>
-<p><a href="https://github.com/ShengM/designmodedemo/tree/master/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener"><strong>实例源码位置</strong></a></p>
-<h2 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h2><p>当需要增加新的产品类型时，需要修改工厂方法，不符合开闭原则。这个问题将被工厂方法模式解决。</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>最近在学习<a href="https://c4model.com/" target="_blank" rel="noopener">C4 model</a>，原因是随着更多的参与系统架构设计一类的事情，越来越发现图形化的表达方式对于软件设计很有意义。</p>
+<ul>
+<li>首先，图形化的表达方式比文字更优越，无论是面对需求产品等非技术人员，还是面对开发人员，图形化的方式可以简明扼要的表达自己的思路，使得双方的交流很快能落到双方关心的问题上；</li>
+<li>其次，图形化的方式对于团队技术资产的传承很有意义，新人可以快速了解系统全貌以及系统内各模块的设计思想，对其融入团队和个人成长都有帮助；</li>
+</ul>
+<p>C4 model是一套可视化表达的方法论，从不同层级（抽象层次）的视角表达系统架构。C4定义了4中基础架构图（<em>Context</em>、<em>Container</em>、<em>Component</em>、<em>Code</em>）和3种增补的架构图（<em>System Landscape diagram</em>、<em>Dynamic diagram</em>、<em>Deployment diagram</em>）；C4没有对具体符号做出详细定义，但提供了一套简单示例，可以在以后的实际使用中在此基础上根据需要增强。</p>
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p>系统架构图，表达系统对于用户的意义以及与其他系统之间的协作关系。这是最高层次的抽象，可以表达整个系统的全貌。</p>
+<p>系统架构图可由如下几种元素描述：</p>
+<ul>
+<li>用户</li>
+<li>系统</li>
+<li>周边系统</li>
+<li>前三者之间的关系</li>
+</ul>
+<p>下图所示是C4官网的系统架构图</p>
+<p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/context.png" alt></p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ol>
+<li>系统符号间的连线表示系统之间的依赖关系，连线的描述需要具体说明依赖情况。</li>
+</ol>
+<h2 id="Container"><a href="#Container" class="headerlink" title="Container"></a>Container</h2><p>容器，表示软件系统最大粒度的组成部分，是数据和代码的承载者，可以是一个进程、应用、服务等等，比如数据库、桌面应用、移动应用、文件系统等。容器图描述了软件系统内部的结构，以及这些结构之间的关系。</p>
+<p>容器图可由如下几种元素描述：</p>
+<ul>
+<li>用户</li>
+<li>系统边界</li>
+<li>容器</li>
+<li>周边系统</li>
+<li>用户与容器、容器与容器、容器与系统之间的关系</li>
+</ul>
+<p>下图所示是C4官网的容器图</p>
+<p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/container.png" alt></p>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><ol>
+<li>容器符号可以描述技术选型；</li>
+<li>关系连线可以描述容器之间的通信方式。</li>
+</ol>
+<h2 id="Component"><a href="#Component" class="headerlink" title="Component"></a>Component</h2><p>组件图，表示容器的内部结构以及这些机构之间的关系。</p>
+<p>组件图可由如下几种元素描述：</p>
+<ul>
+<li>组件</li>
+<li>容器</li>
+<li>容器边界</li>
+<li>系统</li>
+<li>组件与组件、组件与容器、组件与系统之间的关系</li>
+</ul>
+<p>下图所示是C4官网的组件图</p>
+<p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/component.png" alt="组件图"></p>
+<h3 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h3><ol>
+<li>每个组件符号需要描述组件的职责，技术和实现细节也可以描述；</li>
+</ol>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>代码图，表示组件的具体实现，可以用UML类图表示。</p>
+<h3 id="注意-3"><a href="#注意-3" class="headerlink" title="注意"></a>注意</h3><ol>
+<li>通常只对核心或者复杂模块通常提供这一级别的架构图</li>
+</ol>
+<h2 id="System-Landscape-diagram"><a href="#System-Landscape-diagram" class="headerlink" title="System Landscape diagram"></a>System Landscape diagram</h2><p>系统全景图，区别于Context，它的关注点不是聚焦在单个软件系统上，而是整个IT系统的全貌。</p>
+<p>下图所示是C4官网的系统全景图</p>
+<p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/landscape.png" alt="系统全景图"></p>
+<h2 id="Dynamic-diagram"><a href="#Dynamic-diagram" class="headerlink" title="Dynamic diagram"></a>Dynamic diagram</h2><p>动态图，类似UML协作图，反应模型运行时是如何协作来完成一项功能，用数字表示模型间的交互顺序。</p>
+<p>下图所示是C4官网的动态图</p>
+<p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/dynamic.png" alt></p>
+<h2 id="Deployment-diagram"><a href="#Deployment-diagram" class="headerlink" title="Deployment diagram"></a>Deployment diagram</h2><p>部署图，描述容器和部署节点间的关系。</p>
+<p>下图所示是C4官网的部署图</p>
+<p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/deployment.png" alt="部署图"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>感觉C4相对于UML大大降低了入门门槛，可以让我们快速拥有一种统一DSL来进行可视化表达，然而使用场景也比较狭窄，比如框架、库的架构，无法很好的用C4表达；不过C4并不是UML的替代品，它相当于可视化表达的简易教程，使我们进入可视化表达的世界，当面对更多更复杂场景时，可以快速从UML中获取武器。</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎评论指正 </span>
@@ -361,12 +414,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>简单工厂模式</p>
+    <p><span class="copy-title">文章标题:</span>C4Model学习笔记</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="MS">MS</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-07-28, 21:22:07</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-11, 16:10:31</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/07/28/简单工厂模式/" title="简单工厂模式">http://shengm.github.io/2019/07/28/简单工厂模式/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-11, 16:12:32</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-15, 00:05:46</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/11/C4Model学习笔记/" title="C4Model学习笔记">http://shengm.github.io/2019/08/11/C4Model学习笔记/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
