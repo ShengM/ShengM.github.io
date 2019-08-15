@@ -2,9 +2,9 @@
 <html>
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
-  <title>简单工厂模式 | MS的博客</title>
+  <title>工厂方法模式 | MS的博客</title>
   <meta name="keywords" content=" 程序设计 , 设计模式 , 面向对象 ">
-  <meta name="description" content="简单工厂模式 | MS的博客">
+  <meta name="description" content="工厂方法模式 | MS的博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="多看、少说、多做">
 <meta property="og:type" content="website">
@@ -269,9 +269,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-简单工厂模式" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-工厂方法模式" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">简单工厂模式</h1>
+        <h1 class="article-title">工厂方法模式</h1>
     
     <div class="article-meta">
         
@@ -297,7 +297,7 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-08-15 23:11:21'>2019-07-28 21:22</time>
+        创建时间:<time class="date" title='更新时间: 2019-08-15 23:41:37'>2019-08-15 22:47</time>
         
     </div>
     <div class="article-meta">
@@ -345,18 +345,18 @@
 </div>
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>工厂，顾名思义，生产商品，程序设计中的工厂则负责创建对象。有了工厂，对象的使用者不必再自己创建对象，而专注于使用对象完成事情。简单工厂模式的之所以“简单”，既是因为它的实现只需要一个包含静态工厂方法的类型；也是因为使用它的场景最好是对象类型不多、创建过程不复杂的情况，简言之，简单工厂模式解决对象的简单创建问题。</p>
-<p><em>PS：</em>尽管简单工厂模式不是GoF著作《设计模式》中的一种，但通常将它作为最基础的模式来使用。</p>
-<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><h3 id="UML结构图"><a href="#UML结构图" class="headerlink" title="UML结构图"></a>UML结构图</h3><p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/simplefactory.png" alt></p>
-<h3 id="角色说明"><a href="#角色说明" class="headerlink" title="角色说明"></a>角色说明</h3><p><strong>工厂类</strong>：是简单工厂模式中的核心类，包含一个返回产品对象的工厂方法，用户就是调用它来创建对象，另外工厂方法一般是静态的，否则工厂对象的创建职责也需要有人来承担；另外，如果抽象产品类是一个抽象类型而不是接口，工厂的角色也可以由抽象产品类来承担；</p>
-<p><strong>抽象产品类</strong>：是工厂类创建的所有产品对象的父类，可以是接口或者类型，它的存在使得工厂类只需要定义一个通用的工厂方法；</p>
-<p><strong>具体产品类</strong>：定义了具体的对象类型，被工厂类直接依赖。</p>
+        <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>工厂方法，解决了简单工厂模式中工厂类过于复杂以及新增产品类型需要修改工厂类的问题。将工厂类做了一层抽象，让客户端可以选择不同的工厂子类完成对象的创建。</p>
+<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><h3 id="UML结构图"><a href="#UML结构图" class="headerlink" title="UML结构图"></a>UML结构图</h3><p><img src="https://blogbucket-1252640517.cos.ap-beijing.myqcloud.com/img/factorymethod.png" alt="工厂方法模式"></p>
+<h3 id="角色说明"><a href="#角色说明" class="headerlink" title="角色说明"></a>角色说明</h3><p><strong>抽象工厂类</strong>：声明了工厂方法，工厂方法可以有多个重载；</p>
+<p><strong>具体工厂类</strong>：定义了工厂方法，依赖具体产品类，客户端可以依赖它创建产品对象；</p>
+<p><strong>抽象产品类</strong>：定义了产品公共的数据和行为；</p>
+<p><strong>具体产品类</strong>：定义了具体产品自身的数据和行为。</p>
 <h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><blockquote>
-<p>设计一个可以创建不同几何形状（如圆形、方形和三角形等）的绘图工具，每个几何图形都具有绘制draw()和擦除erase()两个方法，要求在绘制不支持的几何图形时，提示一个UnSupportedShapeException</p>
+<p>使用工厂方法模式设计一个程序来读取各种不同类型的图片格式，针对每一种图片格式都设计一个图片读取器，如GIF图片读取器用于读取GIF格式的图片、JPG图片读取器用于读取JPG格式的图片。充分考虑系统的灵活性和可扩展性。</p>
 </blockquote>
-<p><a href="https://github.com/ShengM/designmodedemo/tree/master/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener"><strong>实例源码位置</strong></a></p>
+<p><a href="https://github.com/ShengM/designmodedemo/tree/master/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener"><strong>实例源码位置</strong></a></p>
 <h2 id="Limits"><a href="#Limits" class="headerlink" title="Limits"></a>Limits</h2><ol>
-<li>当需要增加新的产品类型时，需要修改工厂方法，不符合开闭原则。这个问题将被工厂方法模式解决。</li>
+<li>由于具体工厂类和具体产品类成对出现，增加了系统复杂度。</li>
 </ol>
 
       
@@ -371,12 +371,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>简单工厂模式</p>
+    <p><span class="copy-title">文章标题:</span>工厂方法模式</p>
     
     <p><span class="copy-title">本文作者:</span><a href="javascript:void(0)" title="MS">MS</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-07-28, 21:22:07</p>
-    <p><span class="copy-title">最后更新:</span>2019-08-15, 23:11:21</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/07/28/简单工厂模式/" title="简单工厂模式">http://shengm.github.io/2019/07/28/简单工厂模式/</a>
+    <p><span class="copy-title">发布时间:</span>2019-08-15, 22:47:29</p>
+    <p><span class="copy-title">最后更新:</span>2019-08-15, 23:41:37</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/08/15/工厂方法模式/" title="工厂方法模式">http://shengm.github.io/2019/08/15/工厂方法模式/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
